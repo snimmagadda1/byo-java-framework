@@ -36,7 +36,7 @@ public class CompanyServiceImpl implements CompanyService {
         try {
             beginTransaction();
 
-            logger.info("## SERVICE ## ---- END - update company");
+            logger.info("## SERVICE ## ---- START - update company");
             companyDao.createCompany(company);
             logger.info("## SERVICE ## ---- END - update company");
 

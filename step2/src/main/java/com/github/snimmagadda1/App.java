@@ -3,12 +3,27 @@
  */
 package com.github.snimmagadda1;
 
+import java.lang.reflect.Proxy;
+
+import com.github.snimmagadda1.dao.CompanyDao;
+import com.github.snimmagadda1.dao.CompanyDaoImpl;
+import com.github.snimmagadda1.framework.ProxyHandler;
+import com.github.snimmagadda1.model.Company;
+import com.github.snimmagadda1.service.CompanyService;
+import com.github.snimmagadda1.service.CompanyServiceImpl;
+
 public class App {
     public String getGreeting() {
         return "step2 Hello World!";
     }
 
     public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
+        final CompanyDao companyDao = new CompanyDaoImpl();
+        // Create a proxied version of object to handle transaction management
+        final CompanyService companyServiceProxy = (CompanyService) Proxy.newProxyInstance(
+                App.class.getClassLoader(),
+                new Class[] { CompanyService.class },
+                new ProxyHandler(new CompanyServiceImpl(companyDao)));
+        companyServiceProxy.createCompany(new Company());
     }
 }
