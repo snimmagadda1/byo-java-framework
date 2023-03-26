@@ -9,3 +9,4 @@
 
 rootProject.name = 'byo-java-framework'
 include('step1')
+include('step2')
