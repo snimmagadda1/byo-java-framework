@@ -9,6 +9,9 @@ public class App {
     }
 
     public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
+        // final ApplicationContext applicationContext = new ApplicationContext(Step3App.class);
+        // final CompanyService companyServiceProxy = applicationContext.getBean(CompanyService.class);
+
+        // companyServiceProxy.createCompany(new Company());
     }
 }
