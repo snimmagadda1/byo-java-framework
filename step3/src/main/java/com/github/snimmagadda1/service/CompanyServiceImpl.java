@@ -3,8 +3,10 @@ package com.github.snimmagadda1.service;
 import java.util.logging.Logger;
 
 import com.github.snimmagadda1.dao.CompanyDao;
+import com.github.snimmagadda1.framework.annotation.Component;
 import com.github.snimmagadda1.model.Company;
 
+@Component
 public class CompanyServiceImpl implements CompanyService {
 
     private static final Logger logger = Logger.getLogger(CompanyServiceImpl.class.getName());

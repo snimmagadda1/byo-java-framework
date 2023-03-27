@@ -22,6 +22,8 @@ dependencies {
 
     // This dependency is used by the application.
     implementation 'com.google.guava:guava:31.1-jre'
+    implementation 'org.reflections:reflections:0.10.2'
+    implementation 'org.slf4j:slf4j-nop:2.0.7'
 }
 
 application {

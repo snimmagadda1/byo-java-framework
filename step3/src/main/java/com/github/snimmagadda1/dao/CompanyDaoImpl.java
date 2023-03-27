@@ -2,8 +2,10 @@ package com.github.snimmagadda1.dao;
 
 import java.util.logging.Logger;
 
+import com.github.snimmagadda1.framework.annotation.Component;
 import com.github.snimmagadda1.model.Company;
 
+@Component
 public class CompanyDaoImpl implements CompanyDao {
 
     private static final Logger logger = Logger.getLogger(CompanyDaoImpl.class.getName());
