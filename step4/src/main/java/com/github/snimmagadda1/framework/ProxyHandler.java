@@ -23,6 +23,8 @@ public class ProxyHandler implements InvocationHandler {
         return method.invoke(proxiedObject, args);
     }
 
+    // Method is the method on interface, so we must get on the class 
+    // to check if it has the annotation
     private boolean isTransactional(Method method) {
         try{
             return proxiedObject.getClass().getMethod(method.getName(), method.getParameterTypes())
