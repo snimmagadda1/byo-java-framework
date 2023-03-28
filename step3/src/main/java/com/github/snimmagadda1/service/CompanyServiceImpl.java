@@ -3,6 +3,7 @@ package com.github.snimmagadda1.service;
 import java.util.logging.Logger;
 
 import com.github.snimmagadda1.dao.CompanyDao;
+import com.github.snimmagadda1.framework.annotation.Autowired;
 import com.github.snimmagadda1.framework.annotation.Component;
 import com.github.snimmagadda1.model.Company;
 
@@ -13,52 +14,23 @@ public class CompanyServiceImpl implements CompanyService {
 
     private final CompanyDao companyDao;
 
+    @Autowired
     public CompanyServiceImpl(CompanyDao companyDao) {
         this.companyDao = companyDao;
     }
 
     @Override
     public void createCompany(Company company) {
-        try {
-            beginTransaction();
-
-            logger.info("## SERVICE ## ---- START - create company");
-            companyDao.createCompany(company);
-            logger.info("## SERVICE ## ---- END - create company");
-
-            commitTransaction();
-        } catch (Exception e) {
-            rollbackTransaction();
-            throw e;
-        }
+        logger.info("## SERVICE ## ---- START - create company");
+        companyDao.createCompany(company);
+        logger.info("## SERVICE ## ---- END - create company");
     }
 
     @Override
     public void updateCompany(Company company) {
-        try {
-            beginTransaction();
-
-            logger.info("## SERVICE ## ---- START - update company");
-            companyDao.createCompany(company);
-            logger.info("## SERVICE ## ---- END - update company");
-
-            commitTransaction();
-        } catch (Exception e) {
-            rollbackTransaction();
-            throw e;
-        }
-    }
-
-    private void beginTransaction() {
-        logger.info("BEGIN TRANSACTION");
-    }
-
-    private void commitTransaction() {
-        logger.info("COMMIT TRANSACTION");
-    }
-
-    private void rollbackTransaction() {
-        logger.info("ROLLBACK TRANSACTION");
+        logger.info("## SERVICE ## ---- START - update company");
+        companyDao.createCompany(company);
+        logger.info("## SERVICE ## ---- END - update company");
     }
     
 }

@@ -1,6 +1,7 @@
 package com.github.snimmagadda1.framework;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Proxy;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
@@ -34,7 +35,7 @@ public class ApplicationContext {
         }
 
         final Class<T> implementation = findImplementationByInterface(clazz);
-        return createBean(implementation);
+        return createBean(clazz, implementation);
     }
 
     @SuppressWarnings("unchecked")
@@ -55,12 +56,16 @@ public class ApplicationContext {
     }
 
     // Note: this is currently creating the real instance. Will be enhanced w/ proxy
-    private <T> T createBean(Class<T> implementation) {
+    private <T> T createBean(Class<T> clazz, Class<T> implementation) {
         try {
             final Constructor<T> constructor = findConstructor(implementation);
             final Object[] parameters = findConstructorParameters(constructor);
-
-            return constructor.newInstance(parameters);
+            final T bean = constructor.newInstance(parameters);
+            final Object proxy = Proxy.newProxyInstance(
+                    ApplicationContext.class.getClassLoader(),
+                    new Class[] { clazz },
+                    new ProxyHandler(bean));
+            return clazz.cast(proxy);
         } catch (FrameworkException e) {
             throw e;
         } catch (Exception e) {
