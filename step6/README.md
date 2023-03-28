@@ -1,0 +1,3 @@
+# Implementing scope (SINGLETON)
+
+TODO
