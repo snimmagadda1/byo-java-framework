@@ -5,6 +5,7 @@ import java.lang.reflect.Proxy;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
@@ -12,12 +13,15 @@ import org.reflections.Reflections;
 
 import com.github.snimmagadda1.framework.annotation.Autowired;
 import com.github.snimmagadda1.framework.annotation.Component;
+import com.github.snimmagadda1.framework.annotation.Scope;
 import com.github.snimmagadda1.framework.exception.FrameworkException;
 
 public class ApplicationContext {
     private static final Logger logger = Logger.getLogger(ApplicationContext.class.getName());
 
     private final Set<Class<?>> componentBeans;
+
+    private final ConcurrentHashMap<Class<?>, Object> singletonBeans = new ConcurrentHashMap<>();
 
     public ApplicationContext(Class<?> applicationClass) {
         final Reflections reflections = new Reflections(applicationClass.getPackage().getName());
@@ -33,8 +37,14 @@ public class ApplicationContext {
         if (!clazz.isInterface()) {
             throw new FrameworkException("Class " + clazz.getName() + " should be an interface");
         }
-
         final Class<T> implementation = findImplementationByInterface(clazz);
+
+        // First check @Component scope on the annotated implementation
+        Component annotation = implementation.getAnnotation(Component.class);
+        if (annotation.scope() == Scope.SINGLETON) {
+            logger.info("## CONTEXT ## ---- singleton scope detected for bean init");
+            return (T) singletonBeans.computeIfAbsent(clazz, it -> createBean(clazz, implementation));
+        }
         return createBean(clazz, implementation);
     }
 
@@ -95,7 +105,8 @@ public class ApplicationContext {
                         "Cannot find constructor with annotation Autowired: " + clazz.getName()));
     }
 
-    // Find constructor parameters @Autowired and recursively call getBean to instantiate through @Compnent mechanisms
+    // Find constructor parameters @Autowired and recursively call getBean to
+    // instantiate through @Compnent mechanisms
     private <T> Object[] findConstructorParameters(Constructor<T> constructor) {
         final Class<?>[] parameterTypes = constructor.getParameterTypes();
         return Arrays.stream(parameterTypes)
