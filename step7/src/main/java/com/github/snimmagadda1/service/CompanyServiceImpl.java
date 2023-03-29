@@ -7,10 +7,11 @@ import com.github.snimmagadda1.dao.CompanyDao;
 import com.github.snimmagadda1.framework.annotation.Autowired;
 import com.github.snimmagadda1.framework.annotation.Cacheable;
 import com.github.snimmagadda1.framework.annotation.Component;
+import com.github.snimmagadda1.framework.annotation.Scope;
 import com.github.snimmagadda1.framework.annotation.Transactional;
 import com.github.snimmagadda1.model.Company;
 
-@Component
+@Component(scope = Scope.SINGLETON)
 public class CompanyServiceImpl implements CompanyService {
 
     private static final Logger logger = Logger.getLogger(CompanyServiceImpl.class.getName());

@@ -1,3 +1,3 @@
-# Refactor to a more framework-like approach
+# Abstraction
 
-TODO
+Simplifying the framework code.

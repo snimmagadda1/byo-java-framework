@@ -8,5 +8,5 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Component {
-    
+    Scope scope() default Scope.SINGLETON;
 }
