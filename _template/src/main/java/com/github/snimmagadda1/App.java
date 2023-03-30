@@ -4,11 +4,11 @@
 package com.github.snimmagadda1;
 
 public class App {
-    public String getGreeting() {
-        return "_template Hello World!";
-    }
+  public String getGreeting() {
+    return "_template Hello World!";
+  }
 
-    public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
-    }
+  public static void main(String[] args) {
+    System.out.println(new App().getGreeting());
+  }
 }

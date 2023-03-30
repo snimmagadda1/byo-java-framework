@@ -1,5 +1,3 @@
 package com.github.snimmagadda1.model;
 
-public class Company {
-    
-}
+public class Company {}

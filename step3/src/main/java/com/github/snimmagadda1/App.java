@@ -8,15 +8,15 @@ import com.github.snimmagadda1.model.Company;
 import com.github.snimmagadda1.service.CompanyService;
 
 public class App {
-    public String getGreeting() {
-        return "_template Hello World!";
-    }
+  public String getGreeting() {
+    return "_template Hello World!";
+  }
 
-    public static void main(String[] args) {
-        // Constructor with the package to search for managed classes
-        final ApplicationContext applicationContext = new ApplicationContext(App.class);
-        final CompanyService companyServiceProxy = applicationContext.getBean(CompanyService.class);
+  public static void main(String[] args) {
+    // Constructor with the package to search for managed classes
+    final ApplicationContext applicationContext = new ApplicationContext(App.class);
+    final CompanyService companyServiceProxy = applicationContext.getBean(CompanyService.class);
 
-        companyServiceProxy.createCompany(new Company());
-    }
+    companyServiceProxy.createCompany(new Company());
+  }
 }
